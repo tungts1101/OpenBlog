@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/site';
+---
+
+<Base title="Page not found" description="This page does not exist.">
+  <header class="row post-head">
+    <span class="note">404</span>
+    <div>
+      <h1>Torn out.</h1>
+      <p class="lede">This page isn't in the notebook. <a href={url('/')}>Back to the writing</a>.</p>
+    </div>
+  </header>
+</Base>

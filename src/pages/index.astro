@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { formatDate, getPosts, url } from '../lib/site';
+
+const posts = await getPosts();
+const years = Map.groupBy(posts, (post) => post.data.pubDate.getUTCFullYear());
+let index = 0;
+---
+
+<Base>
+  <section class="row masthead">
+    <span class="note">Notebook</span>
+    <div>
+      <h1>{SITE_TITLE}</h1>
+      <p class="lede">{SITE_DESCRIPTION}</p>
+    </div>
+  </section>
+
+  {
+    posts.length === 0 && (
+      <section class="row">
+        <span />
+        <p>Nothing here yet.</p>
+      </section>
+    )
+  }
+
+  {
+    [...years].map(([year, entries]) => (
+      <section class="year" aria-labelledby={`year-${year}`}>
+        <div class="row">
+          <h2 class="note year-label" id={`year-${year}`}>
+            {year}
+          </h2>
+        </div>
+        <ol class="entries">
+          {entries.map((post) => (
+            <li class="row entry" style={`--i: ${index++}`}>
+              <time class="note" datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate, 'short')}
+              </time>
+              <div>
+                <h3>
+                  <a href={url(`/posts/${post.id}/`)}>{post.data.title}</a>
+                </h3>
+                <p>{post.data.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
+</Base>

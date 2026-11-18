@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<Base title="About" description={`About ${SITE_TITLE}.`}>
+  <header class="row post-head">
+    <span class="note">About</span>
+    <h1>Hello.</h1>
+  </header>
+  <div class="row">
+    <span></span>
+    <div class="prose">
+      <p>
+        This page is waiting for an introduction. Edit <code>src/pages/about.astro</code> to say who you
+        are, what you write about and how people can reach you.
+      </p>
+    </div>
+  </div>
+</Base>
